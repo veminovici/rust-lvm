@@ -106,6 +106,14 @@ impl From<RIndex> for u8 {
 
 /// Attempts parsing a string into a [`RIndex`] value.
 /// 
+/// # Examples
+/// 
+/// ```
+/// use lvm_core::RIndex;
+/// 
+/// let res = RIndex::try_from("10");
+/// assert_eq!(10u8, res.unwrap().into())
+/// ```
 impl TryFrom<&str> for RIndex {
     type Error = std::num::ParseIntError;
 
