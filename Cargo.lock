@@ -7,8 +7,13 @@ name = "lvm-core"
 version = "0.1.0"
 
 [[package]]
+name = "lvm-parser"
+version = "0.1.0"
+
+[[package]]
 name = "rust-lvm"
 version = "0.1.0"
 dependencies = [
  "lvm-core",
+ "lvm-parser",
 ]

@@ -1,8 +1,8 @@
 [workspace]
 members = [
     "lvm-core",
+    "lvm-parser",
 ]
-
 
 [package]
 name = "rust-lvm"
@@ -13,3 +13,4 @@ edition = "2021"
 
 [dependencies]
 lvm-core = { path = "./lvm-core", version = "=0.1.0" }
+lvm-parser = { path = "./lvm-parser", version = "=0.1.0" }
