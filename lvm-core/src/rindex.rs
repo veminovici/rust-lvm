@@ -88,6 +88,13 @@ impl From<u8> for RIndex {
     }
 }
 
+/// Obtains a [`Rindex`] instance from a slice of u8 values.
+impl From<&[u8]> for RIndex {
+    fn from(xs: &[u8]) -> Self {
+        RIndex(xs[0])
+    }
+}
+
 /// Obtains an u8 from a register index value.
 ///
 /// # Examples
