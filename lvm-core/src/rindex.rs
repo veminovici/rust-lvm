@@ -1,4 +1,4 @@
-use std::fmt::{Display, UpperHex, LowerHex};
+use std::fmt::{Display, LowerHex, UpperHex};
 
 /// The register index.
 #[derive(PartialEq, Eq, Clone, Copy)]
@@ -17,14 +17,14 @@ impl RIndex {
 }
 
 /// Used for the regular string representation.
-/// 
+///
 /// # Examples
-/// 
+///
 /// [`RIndex`] implements `Display`.
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let rindx = RIndex::make(10);
 /// assert_eq!("$10", rindx.to_string())
 /// ```
@@ -35,14 +35,14 @@ impl Display for RIndex {
 }
 
 /// Used for a hex representation
-/// 
+///
 /// # Examples
-/// 
+///
 /// [`RIndex`] implements `UpperHex`.
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let rindx = RIndex::make(10);
 /// assert_eq!("0A", format!("{:#X}", rindx))
 /// ```
@@ -53,14 +53,14 @@ impl UpperHex for RIndex {
 }
 
 /// Used for a hex representation
-/// 
+///
 /// # Examples
-/// 
+///
 /// [`RIndex`] implements `LowerHex`.
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let rindx = RIndex::make(10);
 /// assert_eq!("0a", format!("{:#x}", rindx))
 /// ```
@@ -71,14 +71,14 @@ impl LowerHex for RIndex {
 }
 
 /// Obtains a register index from an u8 value
-/// 
+///
 /// # Examples
-/// 
+///
 /// [`RIndex`] implements `From<u8>`.
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let rindx = RIndex::from(10u8);
 /// assert_eq!(10u8, rindx.index())
 /// ```
@@ -89,12 +89,12 @@ impl From<u8> for RIndex {
 }
 
 /// Obtains an u8 from a register index value.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let rindx = RIndex::make(10);
 /// assert_eq!(10, rindx.index())
 /// ```
@@ -105,12 +105,12 @@ impl From<RIndex> for u8 {
 }
 
 /// Attempts parsing a string into a [`RIndex`] value.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```
 /// use lvm_core::RIndex;
-/// 
+///
 /// let res = RIndex::try_from("10");
 /// assert_eq!(10u8, res.unwrap().into())
 /// ```
