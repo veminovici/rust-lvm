@@ -107,7 +107,7 @@ impl From<u16> for Operand16 {
 ///
 /// ```
 /// use lvm_core::Operand16;
-/// 
+///
 /// let input = [1u8, 2u8, 3u8].as_slice();
 /// let oprnd = Operand16::from(input);
 /// assert_eq!((1u16 << 8) + 2u16, oprnd.value())
