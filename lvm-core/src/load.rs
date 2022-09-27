@@ -1,9 +1,6 @@
-use std::{
-    fmt::{Debug, Display, LowerHex, UpperHex},
-    num::ParseIntError,
-};
+use std::fmt::{Debug, Display, LowerHex, UpperHex};
 
-use crate::{RIndex, Operand16};
+use crate::{Operand16, RIndex};
 
 /// Structure that represents the load instruction.
 
@@ -16,10 +13,7 @@ pub struct Load {
 impl Load {
     /// Creates a [`Load`] instance.
     pub fn make(rindx: RIndex, oprnd: Operand16) -> Self {
-        Self {
-            rindx,
-            oprnd,
-        }
+        Self { rindx, oprnd }
     }
 
     /// Returns the register index.
@@ -121,4 +115,3 @@ mod tests {
         assert_eq!("LOAD 0a 01f4", format!("{:#x}", load))
     }
 }
-
