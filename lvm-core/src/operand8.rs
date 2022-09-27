@@ -3,27 +3,27 @@ use std::{
     num::ParseIntError,
 };
 
-/// The register index.
+/// An operand with an `u8` value.
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub struct Operand8(u8);
 
 impl Operand8 {
-    /// Creates a [`RIndex`] instance.
+    /// Creates a [`Operand8`] instance.
     pub fn make(value: u8) -> Self {
         Self(value)
     }
 
     /// Returns the internal value.
-    pub const fn index(&self) -> u8 {
+    pub const fn value(&self) -> u8 {
         self.0
     }
 
-    /// Creates a new instance of [`RIndex`] from a given string representation.
+    /// Creates a new instance of [`Operand8`] from a given string representation.
     pub fn try_from_dec(src: &str) -> Result<Self, ParseIntError> {
         src.parse::<u8>().map(Operand8::make)
     }
 
-    /// Creates a new instance of [`RIndex`] from a given string hex representation.
+    /// Creates a new instance of [`Operand8`] from a given string hex representation.
     pub fn try_from_hex(src: &str) -> Result<Self, ParseIntError> {
         u8::from_str_radix(src, 16).map(Operand8::make)
     }
@@ -69,7 +69,7 @@ impl UpperHex for Operand8 {
 ///
 /// # Examples
 ///
-/// [`RIndex`] implements `LowerHex`.
+/// [`Operand8`] implements `LowerHex`.
 ///
 /// ```
 /// use lvm_core::Operand8;
@@ -83,7 +83,7 @@ impl LowerHex for Operand8 {
     }
 }
 
-/// Obtains a register index from an u8 value
+/// Creates a [`Operand8`] instance from an u8 value.
 ///
 /// # Examples
 ///
@@ -92,8 +92,8 @@ impl LowerHex for Operand8 {
 /// ```
 /// use lvm_core::Operand8;
 ///
-/// let rindx = Operand8::from(10u8);
-/// assert_eq!(10u8, rindx.index())
+/// let oprnd = Operand8::from(10u8);
+/// assert_eq!(10u8, oprnd.value())
 /// ```
 impl From<u8> for Operand8 {
     fn from(idx: u8) -> Self {
@@ -102,13 +102,23 @@ impl From<u8> for Operand8 {
 }
 
 /// Obtains a [`Operand8`] instance from a slice of u8 values.
+///
+/// # Examples
+///
+/// ```
+/// use lvm_core::Operand8;
+///
+/// let input = [10u8, 2u8].as_slice();
+/// let oprnd = Operand8::from(input);
+/// assert_eq!(10, oprnd.value())
+/// ```
 impl From<&[u8]> for Operand8 {
     fn from(xs: &[u8]) -> Self {
         Self::make(xs[0])
     }
 }
 
-/// Obtains an u8 from a register index value.
+/// Obtains an u8 from a [`Operand8`] value.
 ///
 /// # Examples
 ///
@@ -116,7 +126,7 @@ impl From<&[u8]> for Operand8 {
 /// use lvm_core::Operand8;
 ///
 /// let oprnd = Operand8::make(10);
-/// assert_eq!(10, oprnd.index())
+/// assert_eq!(10, oprnd.value())
 /// ```
 impl From<Operand8> for u8 {
     fn from(oprnd: Operand8) -> Self {
@@ -165,9 +175,16 @@ mod tests {
     }
 
     #[test]
+    fn from_bytes() {
+        let input = [1u8, 2u8].as_slice();
+        let oprnd = Operand8::from(input);
+        assert_eq!(1, oprnd.value())
+    }
+
+    #[test]
     fn from_u8() {
         let oprnd = Operand8::from(10u8);
-        assert_eq!(10, oprnd.index());
+        assert_eq!(10, oprnd.value());
     }
 
     #[test]

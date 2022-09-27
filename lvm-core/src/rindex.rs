@@ -144,7 +144,7 @@ impl TryFrom<&str> for RIndex {
 
 #[cfg(test)]
 mod tests {
-    use crate::RIndex;
+    use super::RIndex;
 
     #[test]
     fn to_string() {
