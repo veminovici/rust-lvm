@@ -1,4 +1,7 @@
-use std::fmt::{Display, LowerHex, UpperHex};
+use std::{
+    fmt::{Display, LowerHex, UpperHex},
+    num::ParseIntError,
+};
 
 /// The register index.
 #[derive(PartialEq, Eq, Clone, Copy)]
@@ -13,6 +16,14 @@ impl RIndex {
     /// Returns the internal value.
     pub const fn index(&self) -> u8 {
         self.0
+    }
+
+    pub fn try_from_dec(src: &str) -> Result<Self, ParseIntError> {
+        src.parse::<u8>().map(RIndex::make)
+    }
+
+    pub fn try_from_hex(src: &str) -> Result<Self, ParseIntError> {
+        u8::from_str_radix(src, 16).map(RIndex::make)
     }
 }
 
@@ -125,7 +136,7 @@ impl TryFrom<&str> for RIndex {
     type Error = std::num::ParseIntError;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        value.parse::<u8>().map(RIndex::from)
+        RIndex::try_from_dec(value)
     }
 }
 
