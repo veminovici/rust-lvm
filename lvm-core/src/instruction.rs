@@ -67,7 +67,7 @@ impl LowerHex for Instruction {
 
 #[cfg(test)]
 mod tests {
-    use crate::{RIndex, Operand16};
+    use crate::{Operand16, RIndex};
 
     use super::*;
 
