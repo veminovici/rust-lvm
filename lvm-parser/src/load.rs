@@ -42,10 +42,38 @@ fn load_from_bytes(input: &[u8]) -> Result<&[u8], Load> {
 impl ParseString for Load {
     type Output = Self;
 
+    /// Tries to create an [`Load`] instance by parsing a string
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use lvm_core::{Load, RIndex, Operand16};
+    /// use lvm_parser::*;
+    /// 
+    /// let input = "LOAD $10 #500";
+    /// let (_, load) = Load::parse_str(input).unwrap();
+    /// 
+    /// assert_eq!(10u8, load.index().into());
+    /// assert_eq!(500u16, load.operand().into());
+    /// ```
     fn parse_str(input: &str) -> Result<&str, Self::Output> {
         context(CONTEXT, load_from_str)(input)
     }
 
+    /// Tries to create an [`Load`] instance by parsing a hex string
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use lvm_core::{Load, RIndex, Operand16};
+    /// use lvm_parser::*;
+    /// 
+    /// let input = "LOAD $0A #01F4";
+    /// let (_, load) = Load::parse_hex_str(input).unwrap();
+    /// 
+    /// assert_eq!(10u8, load.index().into());
+    /// assert_eq!(500u16, load.operand().into());
+    /// ```
     fn parse_hex_str(input: &str) -> Result<&str, Self::Output> {
         context(CONTEXT, load_from_hex_str)(input)
     }
@@ -54,6 +82,20 @@ impl ParseString for Load {
 impl ParseBytes for Load {
     type Output = Self;
 
+    /// Tries to create an [`Load`] instance by parsing a slide of bytes
+    /// 
+    /// # Examples
+    /// 
+    /// ```
+    /// use lvm_core::{Load, RIndex, Operand16};
+    /// use lvm_parser::*;
+    /// 
+    /// let input = [1u8, 10u8, 50u8, 1u8, 0u8].as_slice();
+    /// let (_, load) = Load::parse_bytes(input).unwrap();
+    /// 
+    /// assert_eq!(10u8, load.index().into());
+    /// assert_eq!(((50u16 << 8) + 1u16), load.operand().into());
+    /// ```
     fn parse_bytes(input: &[u8]) -> Result<&[u8], Self::Output> {
         context(CONTEXT, load_from_bytes)(input)
     }
