@@ -133,8 +133,8 @@ mod tests {
         let rindx1 = RIndex::make(10u8);
         let rindx2 = RIndex::make(20u8);
         let rindx3 = RIndex::make(30u8);
-        let load = Add::make(rindx1, rindx2, rindx3);
-        assert_eq!("ADD $10 $20 $30", load.to_string())
+        let add = Add::make(rindx1, rindx2, rindx3);
+        assert_eq!("ADD $10 $20 $30", add.to_string())
     }
 
     #[test]

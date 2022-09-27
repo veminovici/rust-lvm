@@ -48,16 +48,16 @@ impl ParseString for Add {
     type Output = Self;
 
     /// Tries to create an [`Add`] instance by parsing a string
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use lvm_core::{Add, RIndex};
     /// use lvm_parser::*;
-    /// 
+    ///
     /// let input = "ADD $10 $20 $30";
     /// let (_, add) = Add::parse_str(input).unwrap();
-    /// 
+    ///
     /// assert_eq!(10u8, add.index1().into());
     /// assert_eq!(20u8, add.index2().into());
     ///assert_eq!(30u8, add.index3().into());
@@ -67,16 +67,16 @@ impl ParseString for Add {
     }
 
     /// Tries to create an [`Add`] instance by parsing a hex string
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use lvm_core::{Add, RIndex};
     /// use lvm_parser::*;
-    /// 
+    ///
     /// let input = "ADD $0A $14 $1E";
     /// let (_, add) = Add::parse_hex_str(input).unwrap();
-    /// 
+    ///
     /// assert_eq!(10u8, add.index1().into());
     /// assert_eq!(20u8, add.index2().into());
     ///assert_eq!(30u8, add.index3().into());
@@ -90,16 +90,16 @@ impl ParseBytes for Add {
     type Output = Self;
 
     /// Tries to create an [`Add`] instance by parsing a hex string
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use lvm_core::{Add, RIndex};
     /// use lvm_parser::*;
-    /// 
+    ///
     /// let input = [2u8, 10u8, 20u8, 30u8, 0u8].as_slice();
     /// let (_, add) = Add::parse_bytes(input).unwrap();
-    /// 
+    ///
     /// assert_eq!(10u8, add.index1().into());
     /// assert_eq!(20u8, add.index2().into());
     ///assert_eq!(30u8, add.index3().into());
