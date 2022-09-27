@@ -83,7 +83,8 @@ mod tests {
         let rindx2 = RIndex::make(20u8);
         let rindx3 = RIndex::make(30u8);
         let add = Add::make(rindx1, rindx2, rindx3);
-        assert_eq!("ADD $10 $20 $30", add.to_string())
+        let instruction = Instruction::AddI(add);
+        assert_eq!("ADD $10 $20 $30", instruction.to_string())
     }
 
     #[test]
@@ -98,7 +99,8 @@ mod tests {
         let rindx2 = RIndex::make(20u8);
         let rindx3 = RIndex::make(30u8);
         let add = Add::make(rindx1, rindx2, rindx3);
-        assert_eq!("ADD 0A 14 1E", format!("{:#X}", add))
+        let instruction = Instruction::AddI(add);
+        assert_eq!("ADD 0A 14 1E", format!("{:#X}", instruction))
     }
 
     #[test]
@@ -113,6 +115,7 @@ mod tests {
         let rindx2 = RIndex::make(20u8);
         let rindx3 = RIndex::make(30u8);
         let add = Add::make(rindx1, rindx2, rindx3);
-        assert_eq!("ADD 0a 14 1e", format!("{:#x}", add))
+        let instruction = Instruction::AddI(add);
+        assert_eq!("ADD 0a 14 1e", format!("{:#x}", instruction))
     }
 }

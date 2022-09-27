@@ -55,7 +55,7 @@ mod tests {
                 assert_eq!(10u8, load.index().into());
                 assert_eq!(500u16, load.operand().into());
             }
-            _ => assert!(false)
+            _ => assert!(false),
         }
     }
 
@@ -73,7 +73,7 @@ mod tests {
                 assert_eq!(10u8, load.index().into());
                 assert_eq!(500u16, load.operand().into());
             }
-            _ => assert!(false)
+            _ => assert!(false),
         }
     }
 
@@ -91,7 +91,7 @@ mod tests {
                 assert_eq!(10u8, load.index().into());
                 assert_eq!(((50u16 << 8) + 1u16), load.operand().into());
             }
-            _ => assert!(false)
+            _ => assert!(false),
         }
     }
 }
