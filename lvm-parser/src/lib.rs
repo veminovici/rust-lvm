@@ -1,7 +1,9 @@
+mod load;
 mod operand16;
 mod operand8;
 mod rindex;
 
+pub use load::*;
 pub use operand16::*;
 pub use operand8::*;
 pub use rindex::*;
@@ -20,5 +22,5 @@ pub trait ParseString<Output = Self> {
 pub trait ParseBytes {
     type Output;
 
-    fn parse_u8s(input: &[u8]) -> Result<&[u8], Self::Output>;
+    fn parse_bytes(input: &[u8]) -> Result<&[u8], Self::Output>;
 }

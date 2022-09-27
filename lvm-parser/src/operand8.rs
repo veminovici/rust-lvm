@@ -33,7 +33,7 @@ impl ParseString for Operand8 {
 impl ParseBytes for Operand8 {
     type Output = Self;
 
-    fn parse_u8s(input: &[u8]) -> Result<&[u8], Self::Output> {
+    fn parse_bytes(input: &[u8]) -> Result<&[u8], Self::Output> {
         let f = map(take(LEN), Operand8::from);
         context(CONTEXT, f)(input)
     }

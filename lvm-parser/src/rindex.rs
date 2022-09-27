@@ -33,7 +33,7 @@ impl ParseString for RIndex {
 impl ParseBytes for RIndex {
     type Output = Self;
 
-    fn parse_u8s(input: &[u8]) -> Result<&[u8], Self::Output> {
+    fn parse_bytes(input: &[u8]) -> Result<&[u8], Self::Output> {
         let f = map(take(LEN), RIndex::from);
 
         context(CONTEXT, f)(input)

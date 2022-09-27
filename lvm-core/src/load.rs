@@ -11,6 +11,9 @@ pub struct Load {
 }
 
 impl Load {
+    pub const PREFIX: &str = "LOAD";
+    pub const ID: u8 = 1;
+
     /// Creates a [`Load`] instance.
     pub fn make(rindx: RIndex, oprnd: Operand16) -> Self {
         Self { rindx, oprnd }
@@ -43,7 +46,7 @@ impl Load {
 /// ```
 impl Display for Load {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "LOAD {} {}", self.rindx, self.oprnd)
+        write!(f, "{} {} {}", Self::PREFIX, self.rindx, self.oprnd)
     }
 }
 
@@ -63,7 +66,7 @@ impl Display for Load {
 /// ```
 impl UpperHex for Load {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "LOAD {:X} {:X}", self.rindx, self.oprnd)
+        write!(f, "{} {:X} {:X}", Self::PREFIX, self.rindx, self.oprnd)
     }
 }
 
@@ -83,7 +86,7 @@ impl UpperHex for Load {
 /// ```
 impl LowerHex for Load {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "LOAD {:x} {:x}", self.rindx, self.oprnd)
+        write!(f, "{} {:x} {:x}", Self::PREFIX, self.rindx, self.oprnd)
     }
 }
 
