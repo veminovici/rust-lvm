@@ -1,10 +1,10 @@
 use std::{
-    fmt::{Display, LowerHex, UpperHex},
+    fmt::{Debug, Display, LowerHex, UpperHex},
     num::ParseIntError,
 };
 
 /// An operand with an `u16` value.
-#[derive(PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct Operand16(u16);
 
 impl Operand16 {
@@ -57,11 +57,11 @@ impl Display for Operand16 {
 /// use lvm_core::Operand16;
 ///
 /// let oprnd = Operand16::make(10);
-/// assert_eq!("0A", format!("{:#X}", oprnd))
+/// assert_eq!("000A", format!("{:#X}", oprnd))
 /// ```
 impl UpperHex for Operand16 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:02X}", self.0)
+        write!(f, "{:04X}", self.0)
     }
 }
 
@@ -75,11 +75,11 @@ impl UpperHex for Operand16 {
 /// use lvm_core::Operand16;
 ///
 /// let oprnd = Operand16::make(10);
-/// assert_eq!("0a", format!("{:#x}", oprnd))
+/// assert_eq!("000a", format!("{:#x}", oprnd))
 /// ```
 impl LowerHex for Operand16 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:02x}", self.0)
+        write!(f, "{:04x}", self.0)
     }
 }
 
@@ -166,13 +166,13 @@ mod tests {
     #[test]
     fn to_upper_hex() {
         let oprnd = Operand16::make(10);
-        assert_eq!("0A", format!("{:#X}", oprnd))
+        assert_eq!("000A", format!("{:#X}", oprnd))
     }
 
     #[test]
     fn to_lower_hex() {
         let oprnd = Operand16::make(10);
-        assert_eq!("0a", format!("{:#x}", oprnd))
+        assert_eq!("000a", format!("{:#x}", oprnd))
     }
 
     #[test]

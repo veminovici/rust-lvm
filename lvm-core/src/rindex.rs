@@ -1,10 +1,10 @@
 use std::{
-    fmt::{Display, LowerHex, UpperHex},
+    fmt::{Debug, Display, LowerHex, UpperHex},
     num::ParseIntError,
 };
 
 /// The register index.
-#[derive(PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct RIndex(u8);
 
 impl RIndex {

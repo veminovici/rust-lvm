@@ -1,10 +1,10 @@
 use std::{
-    fmt::{Display, LowerHex, UpperHex},
+    fmt::{Debug, Display, LowerHex, UpperHex},
     num::ParseIntError,
 };
 
 /// An operand with an `u8` value.
-#[derive(PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct Operand8(u8);
 
 impl Operand8 {
