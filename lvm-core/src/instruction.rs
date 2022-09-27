@@ -65,6 +65,15 @@ impl LowerHex for Instruction {
     }
 }
 
+impl From<Instruction> for [u8; 4] {
+    fn from(instruction: Instruction) -> Self {
+        match instruction {
+            Instruction::LoadI(load) => load.into(),
+            Instruction::AddI(add) => add.into(),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::{Operand16, RIndex};

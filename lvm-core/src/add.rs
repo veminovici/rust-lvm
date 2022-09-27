@@ -124,6 +124,17 @@ impl LowerHex for Add {
     }
 }
 
+impl From<Add> for [u8; 4] {
+    fn from(add: Add) -> Self {
+        [
+            Add::ID,
+            add.index1().into(),
+            add.index2().into(),
+            add.index3().into(),
+        ]
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -153,5 +164,19 @@ mod tests {
         let rindx3 = RIndex::make(30u8);
         let add = Add::make(rindx1, rindx2, rindx3);
         assert_eq!("ADD 0a 14 1e", format!("{:#x}", add))
+    }
+
+    #[test]
+    fn to_bytes() {
+        let rindx1 = RIndex::make(10u8);
+        let rindx2 = RIndex::make(20u8);
+        let rindx3 = RIndex::make(30u8);
+        let add = Add::make(rindx1, rindx2, rindx3);
+        let bytes: [u8; 4] = add.into();
+
+        assert_eq!(2, bytes[0]);
+        assert_eq!(10, bytes[1]);
+        assert_eq!(20, bytes[2]);
+        assert_eq!(30, bytes[3]);
     }
 }

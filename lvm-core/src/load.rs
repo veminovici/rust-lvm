@@ -90,6 +90,13 @@ impl LowerHex for Load {
     }
 }
 
+impl From<Load> for [u8; 4] {
+    fn from(load: Load) -> Self {
+        let oprnd: [u8; 2] = load.operand().into();
+        [Load::ID, load.index().into(), oprnd[0], oprnd[1]]
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -116,5 +123,18 @@ mod tests {
         let oprnd = Operand16::make(500u16);
         let load = Load::make(rindx, oprnd);
         assert_eq!("LOAD 0a 01f4", format!("{:#x}", load))
+    }
+
+    #[test]
+    fn to_bytes() {
+        let rindx = RIndex::make(10u8);
+        let oprnd = Operand16::make(500u16);
+        let load = Load::make(rindx, oprnd);
+        let bytes: [u8; 4] = load.into();
+
+        assert_eq!(1, bytes[0]);
+        assert_eq!(10, bytes[1]);
+        assert_eq!(1, bytes[2]);
+        assert_eq!(0xF4u8, bytes[3]);
     }
 }

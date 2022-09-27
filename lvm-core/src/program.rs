@@ -71,6 +71,17 @@ impl IntoIterator for Program {
     }
 }
 
+impl From<Program> for Vec<u8> {
+    fn from(program: Program) -> Self {
+        program.0.into_iter().fold(vec![], |acc, i| {
+            let bytes: [u8; 4] = i.into();
+            let mut acc1 = acc;
+            acc1.extend_from_slice(bytes.as_slice());
+            acc1
+        })
+    }
+}
+
 #[cfg(test)]
 mod tests {
 
@@ -126,5 +137,23 @@ mod tests {
         let e = "LOAD 0a 01f4\nADD 0a 14 1e";
 
         assert_eq!(e, s)
+    }
+
+    #[test]
+    fn to_bytes() {
+        let i1 = create_load();
+        let i2 = create_add();
+        let program = Program::make(vec![i1, i2]);
+        let bytes: Vec<u8> = program.into();
+
+        assert_eq!(8, bytes.len());
+        assert_eq!(1, bytes[0]);
+        assert_eq!(10, bytes[1]);
+        assert_eq!(1, bytes[2]);
+        assert_eq!(0xF4u8, bytes[3]);
+        assert_eq!(2, bytes[4]);
+        assert_eq!(10, bytes[5]);
+        assert_eq!(20, bytes[6]);
+        assert_eq!(30, bytes[7]);
     }
 }

@@ -155,6 +155,12 @@ impl TryFrom<&str> for Operand16 {
     }
 }
 
+impl From<Operand16> for [u8; 2] {
+    fn from(oprnd: Operand16) -> Self {
+        [(oprnd.0 >> 8) as u8, oprnd.0 as u8]
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Operand16;
@@ -207,5 +213,13 @@ mod tests {
     fn try_from_string_failed() {
         let res = Operand16::try_from("CA");
         assert!(res.is_err());
+    }
+
+    #[test]
+    fn to_bytes() {
+        let oprnd = Operand16::make(500u16);
+        let bytes: [u8; 2] = oprnd.into();
+        assert_eq!(1u8, bytes[0]);
+        assert_eq!(0xF4u8, bytes[1]);
     }
 }
