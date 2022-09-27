@@ -5,9 +5,9 @@ use std::{
 
 /// The register index.
 #[derive(PartialEq, Eq, Clone, Copy)]
-pub struct RIndex(u8);
+pub struct Operand8(u8);
 
-impl RIndex {
+impl Operand8 {
     /// Creates a [`RIndex`] instance.
     pub fn make(value: u8) -> Self {
         Self(value)
@@ -20,12 +20,12 @@ impl RIndex {
 
     /// Creates a new instance of [`RIndex`] from a given string representation.
     pub fn try_from_dec(src: &str) -> Result<Self, ParseIntError> {
-        src.parse::<u8>().map(RIndex::make)
+        src.parse::<u8>().map(Operand8::make)
     }
 
     /// Creates a new instance of [`RIndex`] from a given string hex representation.
     pub fn try_from_hex(src: &str) -> Result<Self, ParseIntError> {
-        u8::from_str_radix(src, 16).map(RIndex::make)
+        u8::from_str_radix(src, 16).map(Operand8::make)
     }
 }
 
@@ -33,17 +33,17 @@ impl RIndex {
 ///
 /// # Examples
 ///
-/// [`RIndex`] implements `Display`.
+/// [`Operand8`] implements `Display`.
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let rindx = RIndex::make(10);
-/// assert_eq!("$10", rindx.to_string())
+/// let oprnd = Operand8::make(10);
+/// assert_eq!("#10", oprnd.to_string())
 /// ```
-impl Display for RIndex {
+impl Display for Operand8 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "${}", self.0)
+        write!(f, "#{}", self.0)
     }
 }
 
@@ -51,15 +51,15 @@ impl Display for RIndex {
 ///
 /// # Examples
 ///
-/// [`RIndex`] implements `UpperHex`.
+/// [`Operand8`] implements `UpperHex`.
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let rindx = RIndex::make(10);
-/// assert_eq!("0A", format!("{:#X}", rindx))
+/// let oprnd = Operand8::make(10);
+/// assert_eq!("0A", format!("{:#X}", oprnd))
 /// ```
-impl UpperHex for RIndex {
+impl UpperHex for Operand8 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:02X}", self.0)
     }
@@ -72,12 +72,12 @@ impl UpperHex for RIndex {
 /// [`RIndex`] implements `LowerHex`.
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let rindx = RIndex::make(10);
-/// assert_eq!("0a", format!("{:#x}", rindx))
+/// let oprnd = Operand8::make(10);
+/// assert_eq!("0a", format!("{:#x}", oprnd))
 /// ```
-impl LowerHex for RIndex {
+impl LowerHex for Operand8 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:02x}", self.0)
     }
@@ -87,24 +87,24 @@ impl LowerHex for RIndex {
 ///
 /// # Examples
 ///
-/// [`RIndex`] implements `From<u8>`.
+/// [`Operand8`] implements `From<u8>`.
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let rindx = RIndex::from(10u8);
+/// let rindx = Operand8::from(10u8);
 /// assert_eq!(10u8, rindx.index())
 /// ```
-impl From<u8> for RIndex {
+impl From<u8> for Operand8 {
     fn from(idx: u8) -> Self {
-        RIndex(idx)
+        Self::make(idx)
     }
 }
 
-/// Obtains a [`Rindex`] instance from a slice of u8 values.
-impl From<&[u8]> for RIndex {
+/// Obtains a [`Operand8`] instance from a slice of u8 values.
+impl From<&[u8]> for Operand8 {
     fn from(xs: &[u8]) -> Self {
-        RIndex(xs[0])
+        Self::make(xs[0])
     }
 }
 
@@ -113,79 +113,79 @@ impl From<&[u8]> for RIndex {
 /// # Examples
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let rindx = RIndex::make(10);
-/// assert_eq!(10, rindx.index())
+/// let oprnd = Operand8::make(10);
+/// assert_eq!(10, oprnd.index())
 /// ```
-impl From<RIndex> for u8 {
-    fn from(idx: RIndex) -> Self {
-        idx.0
+impl From<Operand8> for u8 {
+    fn from(oprnd: Operand8) -> Self {
+        oprnd.0
     }
 }
 
-/// Attempts parsing a string into a [`RIndex`] value.
+/// Attempts parsing a string into a [`Operand8`] value.
 ///
 /// # Examples
 ///
 /// ```
-/// use lvm_core::RIndex;
+/// use lvm_core::Operand8;
 ///
-/// let res = RIndex::try_from("10");
+/// let res = Operand8::try_from("10");
 /// assert_eq!(10u8, res.unwrap().into())
 /// ```
-impl TryFrom<&str> for RIndex {
+impl TryFrom<&str> for Operand8 {
     type Error = std::num::ParseIntError;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        RIndex::try_from_dec(value)
+        Operand8::try_from_dec(value)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::RIndex;
+    use super::Operand8;
 
     #[test]
     fn to_string() {
-        let rindx = RIndex::make(10);
-        assert_eq!("$10", rindx.to_string())
+        let oprnd = Operand8::make(10);
+        assert_eq!("#10", oprnd.to_string())
     }
 
     #[test]
     fn to_upper_hex() {
-        let rindx = RIndex::make(10);
-        assert_eq!("0A", format!("{:#X}", rindx))
+        let oprnd = Operand8::make(10);
+        assert_eq!("0A", format!("{:#X}", oprnd))
     }
 
     #[test]
     fn to_lower_hex() {
-        let rindx = RIndex::make(10);
-        assert_eq!("0a", format!("{:#x}", rindx))
+        let oprnd = Operand8::make(10);
+        assert_eq!("0a", format!("{:#x}", oprnd))
     }
 
     #[test]
     fn from_u8() {
-        let rindx = RIndex::from(10u8);
-        assert_eq!(10, rindx.index());
+        let oprnd = Operand8::from(10u8);
+        assert_eq!(10, oprnd.index());
     }
 
     #[test]
     fn to_u8() {
-        let idx = u8::from(RIndex::make(10));
-        assert_eq!(10, idx)
+        let oprnd = u8::from(Operand8::make(10));
+        assert_eq!(10, oprnd)
     }
 
     #[test]
     fn try_from_string() {
-        let res = RIndex::try_from("10");
+        let res = Operand8::try_from("10");
         assert!(res.is_ok());
         assert_eq!(10u8, res.unwrap().into())
     }
 
     #[test]
     fn try_from_string_failed() {
-        let res = RIndex::try_from("CA");
+        let res = Operand8::try_from("CA");
         assert!(res.is_err());
     }
 }
