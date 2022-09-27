@@ -9,7 +9,6 @@ use nom::{
     sequence::preceded,
 };
 
-const PREFIX: &str = "$";
 const CONTEXT: &str = "rindex";
 const LEN: usize = 1;
 
@@ -17,14 +16,14 @@ impl ParseString for RIndex {
     type Output = Self;
 
     fn parse_str(input: &str) -> Result<&str, Self::Output> {
-        let fst = tag(PREFIX);
+        let fst = tag(RIndex::PREFIX);
         let snd = map_res(digit1, RIndex::try_from);
 
         context(CONTEXT, preceded(fst, snd))(input)
     }
 
     fn parse_hex_str(input: &str) -> Result<&str, Self::Output> {
-        let fst = tag(PREFIX);
+        let fst = tag(RIndex::PREFIX);
         let snd = map_res(hex_digit1, RIndex::try_from_hex);
         context(CONTEXT, preceded(fst, snd))(input)
     }

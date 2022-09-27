@@ -8,6 +8,8 @@ use std::{
 pub struct Operand16(u16);
 
 impl Operand16 {
+    pub const PREFIX: &str = "#";
+
     /// Creates a [`Operand16`] instance.
     pub fn make(value: u16) -> Self {
         Self(value)
@@ -43,7 +45,7 @@ impl Operand16 {
 /// ```
 impl Display for Operand16 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "#{}", self.0)
+        write!(f, "{}{}", Self::PREFIX, self.0)
     }
 }
 

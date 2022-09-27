@@ -8,6 +8,8 @@ use std::{
 pub struct RIndex(u8);
 
 impl RIndex {
+    pub const PREFIX: &str = "$";
+
     /// Creates a [`RIndex`] instance.
     pub fn make(value: u8) -> Self {
         Self(value)
@@ -43,7 +45,7 @@ impl RIndex {
 /// ```
 impl Display for RIndex {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "${}", self.0)
+        write!(f, "{}{}", Self::PREFIX, self.0)
     }
 }
 

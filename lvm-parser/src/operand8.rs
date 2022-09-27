@@ -9,7 +9,6 @@ use nom::{
     sequence::preceded,
 };
 
-const PREFIX: &str = "#";
 const CONTEXT: &str = "operand8";
 const LEN: usize = 1;
 
@@ -17,14 +16,14 @@ impl ParseString for Operand8 {
     type Output = Self;
 
     fn parse_str(input: &str) -> Result<&str, Self::Output> {
-        let fst = tag(PREFIX);
+        let fst = tag(Operand8::PREFIX);
         let snd = map_res(digit1, Operand8::try_from);
 
         context(CONTEXT, preceded(fst, snd))(input)
     }
 
     fn parse_hex_str(input: &str) -> Result<&str, Self::Output> {
-        let fst = tag(PREFIX);
+        let fst = tag(Operand8::PREFIX);
         let snd = map_res(hex_digit1, Operand8::try_from_hex);
         context(CONTEXT, preceded(fst, snd))(input)
     }
