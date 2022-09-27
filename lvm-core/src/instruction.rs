@@ -2,7 +2,7 @@ use std::fmt::{Debug, Display, LowerHex, UpperHex};
 
 use crate::{Add, Load};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum Instruction {
     LoadI(Load),
     AddI(Add),

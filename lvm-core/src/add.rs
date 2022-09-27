@@ -4,7 +4,7 @@ use crate::RIndex;
 
 /// Structure that represents the load instruction.
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Add {
     rindx1: RIndex,
     rindx2: RIndex,

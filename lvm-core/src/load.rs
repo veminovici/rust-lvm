@@ -4,7 +4,7 @@ use crate::{Operand16, RIndex};
 
 /// Structure that represents the load instruction.
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Load {
     rindx: RIndex,
     oprnd: Operand16,
