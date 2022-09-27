@@ -15,7 +15,7 @@ impl Add {
     pub const PREFIX: &str = "ADD";
     pub const ID: u8 = 2;
 
-    /// Creates a [`Load`] instance.
+    /// Creates a [`Add`] instance.
     pub fn make(rindx1: RIndex, rindx2: RIndex, rindx3: RIndex) -> Self {
         Self {
             rindx1,
@@ -57,7 +57,14 @@ impl Add {
 /// ```
 impl Display for Add {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} {} {} {}", Self::PREFIX, self.rindx1, self.rindx2, self.rindx3)
+        write!(
+            f,
+            "{} {} {} {}",
+            Self::PREFIX,
+            self.rindx1,
+            self.rindx2,
+            self.rindx3
+        )
     }
 }
 
@@ -78,7 +85,14 @@ impl Display for Add {
 /// ```
 impl UpperHex for Add {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} {:X} {:X} {:X}", Self::PREFIX, self.rindx1, self.rindx2, self.rindx3)
+        write!(
+            f,
+            "{} {:X} {:X} {:X}",
+            Self::PREFIX,
+            self.rindx1,
+            self.rindx2,
+            self.rindx3
+        )
     }
 }
 
@@ -86,7 +100,7 @@ impl UpperHex for Add {
 ///
 /// # Examples
 ///
-/// [`Load`] implements `LowerHex`.
+/// [`Add`] implements `LowerHex`.
 ///
 /// ```
 /// use lvm_core::{Add, RIndex};
@@ -99,7 +113,14 @@ impl UpperHex for Add {
 /// ```
 impl LowerHex for Add {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} {:x} {:x} {:x}", Self::PREFIX, self.rindx1, self.rindx2, self.rindx3)
+        write!(
+            f,
+            "{} {:x} {:x} {:x}",
+            Self::PREFIX,
+            self.rindx1,
+            self.rindx2,
+            self.rindx3
+        )
     }
 }
 

@@ -77,6 +77,19 @@ mod tests {
     }
 
     #[test]
+    fn parse_hex_str() {
+        let input = "LOAD $0A #01F4";
+
+        let res = Load::parse_hex_str(input);
+        assert!(res.is_ok());
+
+        let load = res.unwrap().1;
+
+        assert_eq!(10u8, load.index().into());
+        assert_eq!(500u16, load.operand().into());
+    }
+
+    #[test]
     fn parse_bytes() {
         let input = [1u8, 10u8, 50u8, 1u8, 0u8].as_slice();
 

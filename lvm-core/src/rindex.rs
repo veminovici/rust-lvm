@@ -103,7 +103,7 @@ impl From<u8> for RIndex {
     }
 }
 
-/// Obtains a [`Rindex`] instance from a slice of u8 values.
+/// Obtains a [`RIndex`] instance from a slice of u8 values.
 impl From<&[u8]> for RIndex {
     fn from(xs: &[u8]) -> Self {
         RIndex(xs[0])
