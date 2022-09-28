@@ -1,3 +1,4 @@
+use lvm_machine::VM;
 use rustyline::{config::Configurer, ColorMode};
 
 use crate::Repl;
@@ -36,6 +37,7 @@ impl ReplBuilder {
             prompt: format!("{} ", self.prompt),
             out: self.out,
             editor,
+            vm: VM::new(),
         }
     }
 

@@ -1,5 +1,9 @@
 use std::io::Write;
 
+use anyhow::Error;
+use lvm_core::Instruction;
+use lvm_machine::VM;
+use lvm_parser::ParseString;
 use rustyline::error::ReadlineError;
 
 use crate::ReplBuilder;
@@ -10,6 +14,7 @@ pub struct Repl {
     pub(crate) prompt: String,
     pub(crate) out: Box<dyn Write>,
     pub(crate) editor: rustyline::Editor<()>,
+    pub(crate) vm: VM,
 }
 
 enum IterationResult {
@@ -20,6 +25,12 @@ enum IterationResult {
 impl Repl {
     pub fn builder() -> ReplBuilder {
         ReplBuilder::new()
+    }
+
+    fn parse_instruction(input: &str) -> anyhow::Result<Instruction> {
+        Instruction::parse_str(input)
+            .map(|(_, i)| i)
+            .map_err(|_e| Error::msg("Not an instruction"))
     }
 
     fn iterate(&mut self) -> anyhow::Result<IterationResult> {
@@ -38,9 +49,24 @@ impl Repl {
                     writeln!(&mut self.out, "  :i - prints the internal information")?;
                     Ok(IterationResult::Continue)
                 }
-                _ => {
-                    self.editor.add_history_entry(line.as_str());
-                    writeln!(&mut self.out, "Line: {}", line)?;
+                ":i" => {
+                    writeln!(&mut self.out, "{}", self.vm)?;
+                    Ok(IterationResult::Continue)
+                }
+                line => {
+                    let instruction = Repl::parse_instruction(line)?;
+                    match instruction {
+                        Instruction::LoadI(load) => {
+                            self.editor.add_history_entry(line);
+                            writeln!(&mut self.out, "Executing: {}", &load)?;
+                            self.vm.run_load(load)
+                        }
+                        Instruction::AddI(add) => {
+                            self.editor.add_history_entry(line);
+                            writeln!(&mut self.out, "Executing: {}", &add)?;
+                            self.vm.run_add(add)
+                        }
+                    }
                     Ok(IterationResult::Continue)
                 }
             },

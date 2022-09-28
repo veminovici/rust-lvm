@@ -1,12 +1,14 @@
+use std::fmt::{write, Display};
+
 use lvm_core::{Add, Load};
 
 pub struct VM {
-    registers: [u16; 32],
+    registers: [u16; 8],
 }
 
 impl VM {
     pub fn new() -> Self {
-        Self { registers: [0; 32] }
+        Self { registers: [0; 8] }
     }
 
     pub fn run_load(&mut self, load: Load) {
@@ -22,6 +24,19 @@ impl VM {
 
         let ttl = self.registers[a as usize] + self.registers[b as usize];
         self.registers[c as usize] = ttl;
+    }
+}
+
+impl Display for VM {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Registers:")?;
+        let _ = self
+            .registers
+            .into_iter()
+            .enumerate()
+            .inspect(|(i, r)| writeln!(f, "  {}: {}", i, r).unwrap())
+            .count();
+        write!(f, "")
     }
 }
 
@@ -54,9 +69,9 @@ mod tests {
         vm.run_load(make_load(2, 300));
         assert_eq!(300, vm.registers[2]);
 
-        vm.run_add(make_add(1, 2, 10));
+        vm.run_add(make_add(1, 2, 3));
         assert_eq!(200, vm.registers[1]);
         assert_eq!(300, vm.registers[2]);
-        assert_eq!(500, vm.registers[10]);
+        assert_eq!(500, vm.registers[3]);
     }
 }
