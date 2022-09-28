@@ -16,3 +16,10 @@ cargo test --workspace
 - **lvm-core** contains the core structures (e.g. RIndex, Operand8, Instruction, Program)
 - **lvm-parser** contains the traits and the parsing of strings or bytes.
 - **lvm-machine** contains core structures related to virtual machine.
+- **lvm-repl** implements a REPL application.
+
+## REPL
+The REPL application supports several commands:
+- *:q* - terminates the application
+- *:h* - prints the help
+- *:i* - prints the internal information

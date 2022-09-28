@@ -9,3 +9,6 @@ edition = "2021"
 anyhow = "1.0"
 rustyline = "10.0"
 rustyline-derive = "0.7"
+lvm-core = { path = "./../lvm-core", version = "=0.1.0" }
+lvm-parser = { path = "./../lvm-parser", version = "=0.1.0" }
+lvm-machine = { path = "./../lvm-machine", version = "=0.1.0" }
