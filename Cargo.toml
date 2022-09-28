@@ -3,6 +3,7 @@ members = [
     "lvm-core",
     "lvm-parser",
     "lvm-machine",
+    "lvm-repl",
 ]
 
 [package]

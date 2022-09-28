@@ -9,9 +9,9 @@ impl PBytes {
     }
 
     pub fn iter(&self) -> PBytesIter {
-        PBytesIter { 
-            bytes: &self.0, 
-            cur: 0
+        PBytesIter {
+            bytes: &self.0,
+            cur: 0,
         }
     }
 }
@@ -41,7 +41,7 @@ impl<'a> Iterator for PBytesIter<'a> {
 
 #[cfg(test)]
 mod tests {
-    use lvm_core::{RIndex, Operand16, Load, Add};
+    use lvm_core::{Add, Load, Operand16, RIndex};
 
     use super::*;
 
