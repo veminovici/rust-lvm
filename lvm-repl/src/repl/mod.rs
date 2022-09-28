@@ -1,3 +1,5 @@
+//! A REPL application
+
 mod builder;
 mod repl;
 

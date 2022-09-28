@@ -23,3 +23,6 @@ The REPL application supports several commands:
 - *:q* - terminates the application
 - *:h* - prints the help
 - *:i* - prints the internal information
+- *:ix* - prints the internal information in hex format
+- *LOAD $1 #10* - executes a load instruction
+- *ADD $1 $2 $3* - executed an add instruction

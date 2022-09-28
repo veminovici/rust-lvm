@@ -1,4 +1,4 @@
-use std::fmt::{write, Display};
+use std::fmt::{Display, LowerHex, UpperHex};
 
 use lvm_core::{Add, Load};
 
@@ -35,6 +35,32 @@ impl Display for VM {
             .into_iter()
             .enumerate()
             .inspect(|(i, r)| writeln!(f, "  {}: {}", i, r).unwrap())
+            .count();
+        write!(f, "")
+    }
+}
+
+impl UpperHex for VM {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Registers:")?;
+        let _ = self
+            .registers
+            .into_iter()
+            .enumerate()
+            .inspect(|(i, r)| writeln!(f, "  {}: 0x{:X}", i, r).unwrap())
+            .count();
+        write!(f, "")
+    }
+}
+
+impl LowerHex for VM {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Registers:")?;
+        let _ = self
+            .registers
+            .into_iter()
+            .enumerate()
+            .inspect(|(i, r)| writeln!(f, "  {}: 0x{:x}", i, r).unwrap())
             .count();
         write!(f, "")
     }

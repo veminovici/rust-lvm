@@ -42,6 +42,7 @@ impl Repl {
                     Ok(IterationResult::Break)
                 }
                 ":h" => {
+                    self.editor.add_history_entry(line);
                     writeln!(&mut self.out, "{} - {} repl", self.name, self.version)?;
                     writeln!(&mut self.out, "Help here")?;
                     writeln!(&mut self.out, "  :h - prints the help")?;
@@ -50,21 +51,30 @@ impl Repl {
                     Ok(IterationResult::Continue)
                 }
                 ":i" => {
+                    self.editor.add_history_entry(line);
                     writeln!(&mut self.out, "{}", self.vm)?;
                     Ok(IterationResult::Continue)
                 }
+                ":ix" => {
+                    self.editor.add_history_entry(line);
+                    writeln!(&mut self.out, "{:X}", self.vm)?;
+                    Ok(IterationResult::Continue)
+                }
                 line => {
-                    let instruction = Repl::parse_instruction(line)?;
-                    match instruction {
-                        Instruction::LoadI(load) => {
+                    match Repl::parse_instruction(line) {
+                        Ok(Instruction::LoadI(load)) => {
                             self.editor.add_history_entry(line);
                             writeln!(&mut self.out, "Executing: {}", &load)?;
                             self.vm.run_load(load)
                         }
-                        Instruction::AddI(add) => {
+                        Ok(Instruction::AddI(add)) => {
                             self.editor.add_history_entry(line);
                             writeln!(&mut self.out, "Executing: {}", &add)?;
                             self.vm.run_add(add)
+                        }
+                        _ => {
+                            self.editor.add_history_entry(line);
+                            writeln!(&mut self.out, "Unknown: {}", line)?;
                         }
                     }
                     Ok(IterationResult::Continue)
