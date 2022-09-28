@@ -28,8 +28,25 @@ impl Repl {
         let readline = self.editor.readline(&self.prompt);
         match readline {
             Ok(line) => {
-                writeln!(&mut self.out, "Line: {}", line)?;
-                Ok(IterationResult::Continue)
+                match line.as_str() {
+                    ":q" => {
+                        writeln!(&mut self.out, "Quiting")?;
+                        Ok(IterationResult::Break)
+                    }
+                    ":h" => {
+                        writeln!(&mut self.out, "{} - {} repl", self.name, self.version)?;
+                        writeln!(&mut self.out, "Help here")?;
+                        writeln!(&mut self.out, "  :h - prints the help")?;
+                        writeln!(&mut self.out, "  :q - terminates the application")?;
+                        writeln!(&mut self.out, "  :i - prints the internal information")?;
+                        Ok(IterationResult::Continue)
+                    }
+                    _ => {
+                        self.editor.add_history_entry(line.as_str());
+                        writeln!(&mut self.out, "Line: {}", line)?;
+                        Ok(IterationResult::Continue)
+                    }
+                }
             }
             Err(ReadlineError::Interrupted) => {
                 writeln!(&mut self.out, "CTRL-C")?;
