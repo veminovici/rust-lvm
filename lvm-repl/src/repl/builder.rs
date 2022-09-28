@@ -53,7 +53,6 @@ impl ReplBuilder {
         self.color_mode = ColorMode::Enabled;
         self
     }
-
 }
 
 #[cfg(test)]
@@ -67,6 +66,6 @@ mod tests {
             .with_prompt("*>".into())
             .build();
         assert_eq!("Test", repl.name);
-        assert_eq!("*>", repl.prompt);
+        assert_eq!("*> ", repl.prompt);
     }
 }
